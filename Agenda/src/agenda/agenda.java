@@ -1,35 +1,54 @@
 package agenda;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
-import java.text.ParseException;
+// Authorship: Tiago Onofre
+
+import agenda.pagina;
 
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Scanner;
+
+@SuppressWarnings("unused")
 public class agenda {
 	
+	private LinkedList<pagina> caderno;
 	// data no formato dd/mm/aaaa.
-	private GregorianCalendar calendario;
-	private Date dataManipulavel;
-	private TimeZone utc;
-	SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss"); // objeto que ira formatar a data.
 	
-	// Anotacão associada a data.
-	String reminder;
+	// index para controlar as datas.
+	private static int index;
 	
-	// Construtor com passagem de string.
-	public agenda(String data)
+	
+	// --------- Construtor comum. ----------
+	public agenda()
 	{
-		// tratamento de excessões.
-		try {
-			this.calendario = new GregorianCalendar(utc);
-			this.calendario.setTime(formatador.parse(data));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		caderno = new LinkedList<pagina>();
+		index = 0;
 	}
+	// --------------------------------------
+	
+	
+	// ------------ adicionar lembrete a list da agenda. ---------------
+	public void novoLembrete(String data) throws Exception
+	{
+		this.caderno.add(index, new pagina( data ) );
+		
+		//caderno.get(index).printer();
+		
+	}
+	// -----------------------------------------------------------------
+	
+	public void print()
+	{
+		System.out.println("| Agenda compromissos");
+		
+		for( pagina p : caderno )
+		{
+			p.printer();
+		}
+		
+	}
+	//-------------------------------------------------------------------
 
 	
 }
